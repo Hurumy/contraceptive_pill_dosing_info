@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<style>
+    .nextline {
+        margin: 1px;
+    }
+    .pill {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        float: left;
+        margin: 0px;
+        margin-bottom: 5px;
+        margin-right: 12px;
+    }
+    .redpill {
+        background: #e85319;
+        border: 1px solid #905959;
+    }
+    .whitepill {
+        background: #f9f7f0;
+        border: 1px solid #90a8d3;
+    }
+    .yellowpill {
+        background: #ffcc14;
+        border: 1px solid #b8bd24;
+    }
+    .placebo {
+        background: #9ed6ad;
+        border: 1px solid #338f84;
+    }
+    .finishedpill {
+        background: #606364;
+        border: 1px solid #8e8e9b;
+    }
+
+</style>
+
+
+<html>
+    <head>
+        <meta property="og:description" content="ピルのシートが全然管理できない。正しく休薬できたことがないので、いつでも視覚的に確認できるようにしました">
+        <meta name="description" content="わたしのピルのシートの進行度を適宜チェックすることができます">
+        <title>ふるまいのピルシート管理</title>
+    </head>
+<body>
+
+<h2>
+    <div alien="left">
+
+    <script>
+
+    //ここを設定し、開始日とシートの何日目かを変更できる 1日目から28日目まで
+    const startday = new Date("2023/10/07");
+    const whatday = 22;
+
+    var today= new Date(); 
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const week = today.getDay();
+    const day = today.getDate();
+
+    var firstsheetstart = new Date();
+    firstsheetstart.setDate(startday.getDate() - whatday);
+    const ls_day = firstsheetstart.getDate();
+    const ls_mon = firstsheetstart.getMonth() + 1;
+
+    //登録した開始日からの経過日数
+    const elapseddays = Math.ceil((today - startday + ((whatday - 1) * 86400000)) / 86400000);
+
+    //経過日数を見て、現在のシートで何日目か計算する
+    var termdate;
+    if (elapseddays < 28)
+        termdate = elapseddays;
+    else
+        termdate = Math.ceil(elapseddays / 28);
+
+    var periodterm;
+    if (termdate >= 24 || termdate <= 3)
+        periodterm = 3;
+    else if (4 <= termdate && termdate <= 9)
+        periodterm = 0;
+    else if (10 <= termdate && termdate <= 14)
+        periodterm = 1;
+    else if (15 <= termdate && termdate <= 23)
+        periodterm = 2;
+
+
+    const period = new Array("卵胞期", "排卵期", "黄体期", "月経期");
+    const weekday= new Array("日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日");
+    const explanation = new Array(
+        "卵胞期は、",
+        "排卵期は、",
+        "黄体期は、",
+        "月経期は、"
+    );
+
+    document.write("今日は"+ year + "年" + month + "月" + day + "日 " + weekday[week]);
+    document.write("<br>シート" + termdate + "日目" + "<br>");
+    document.write("生理周期: " + period[periodterm] + "<br>");
+    document.write(period[periodterm] + "の説明: " + explanation[periodterm] + "<br><br>");
+
+
+    for (var i = 1; i <= 28; i ++)
+    {
+        if (i < termdate)
+        {
+            document.write("<p class=\"pill finishedpill\"></p>");
+        }
+        else if (1 <= i && i <= 6)
+        {
+            document.write("<p class=\"pill redpill\"></p>");
+        }
+        else if (7 <= i && i <= 11)
+        {
+            document.write("<p class=\"pill whitepill\"></p>")
+        }
+        else if (12 <= i && i <= 21)
+        {
+            document.write("<p class=\"pill yellowpill\"></p>");
+        }
+        else if (22 <= i && i <= 28)
+        {
+            document.write("<p class=\"pill placebo\"></p>");
+        }
+
+        if (i % 7 === 0)
+        {
+            document.write("<p class=\"nextline\"></p><br>");
+        }
+    }
+    </script>
+
+    </div>
+</h2>
+
+<!-- 
+<div>
+    <p class="pill redpill"></p>
+    <p class="pill redpill"></p>
+    <p class="pill redpill"></p>
+    <p class="pill redpill"></p>
+    <p class="pill redpill"></p>
+    <p class="pill redpill"></p>
+</div>
+
+<p class="nextline"></p>
+
+<div>
+    <p class="pill whitepill"></p>
+    <p class="pill whitepill"></p>
+    <p class="pill whitepill"></p>
+    <p class="pill whitepill"></p>
+    <p class="pill whitepill"></p>
+</div>
+
+<p class="nextline"></p>
+
+<div>
+    <p class="pill yellowpill"></p>
+    <p class="pill yellowpill"></p>
+    <p class="pill yellowpill"></p>
+    <p class="pill yellowpill"></p>
+    <p class="pill yellowpill"></p>
+    <p class="pill yellowpill"></p>
+    <p class="pill yellowpill"></p>
+    <p class="pill yellowpill"></p> -->
+    <!-- <p class="pill yellowpill"></p>
+    <p class="pill yellowpill"></p>
+</div>
+
+<p class="nextline"></p>
+
+<div>
+    <p class="pill placebo"></p>
+    <p class="pill placebo"></p>
+    <p class="pill placebo"></p>
+    <p class="pill placebo"></p>
+    <p class="pill placebo"></p>
+    <p class="pill placebo"></p>
+    <p class="pill placebo"></p>
+</div> -->
+
+</body>
+</html>
