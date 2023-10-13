@@ -73,7 +73,9 @@
     if (elapseddays < 28)
         termdate = elapseddays;
     else
-        termdate = Math.ceil(elapseddays / 28);
+        termdate = Math.ceil(elapseddays % 28);
+	if (termdate == 0)
+		termdate = 28;
 
     var periodterm;
     if (termdate >= 24 || termdate <= 3)
@@ -133,53 +135,6 @@
 
     </div>
 </h2>
-
-<!-- 
-<div>
-    <p class="pill redpill"></p>
-    <p class="pill redpill"></p>
-    <p class="pill redpill"></p>
-    <p class="pill redpill"></p>
-    <p class="pill redpill"></p>
-    <p class="pill redpill"></p>
-</div>
-
-<p class="nextline"></p>
-
-<div>
-    <p class="pill whitepill"></p>
-    <p class="pill whitepill"></p>
-    <p class="pill whitepill"></p>
-    <p class="pill whitepill"></p>
-    <p class="pill whitepill"></p>
-</div>
-
-<p class="nextline"></p>
-
-<div>
-    <p class="pill yellowpill"></p>
-    <p class="pill yellowpill"></p>
-    <p class="pill yellowpill"></p>
-    <p class="pill yellowpill"></p>
-    <p class="pill yellowpill"></p>
-    <p class="pill yellowpill"></p>
-    <p class="pill yellowpill"></p>
-    <p class="pill yellowpill"></p> -->
-    <!-- <p class="pill yellowpill"></p>
-    <p class="pill yellowpill"></p>
-</div>
-
-<p class="nextline"></p>
-
-<div>
-    <p class="pill placebo"></p>
-    <p class="pill placebo"></p>
-    <p class="pill placebo"></p>
-    <p class="pill placebo"></p>
-    <p class="pill placebo"></p>
-    <p class="pill placebo"></p>
-    <p class="pill placebo"></p>
-</div> -->
 
 </body>
 </html>
